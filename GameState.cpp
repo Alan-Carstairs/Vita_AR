@@ -151,83 +151,7 @@ void GameState::Update(float frame_time, gef::InputManager * inputManager, State
 			sampleGetTransform(1, &marker_transform2);
 		}
 
-		if (input_manager_)
-		{
-			input_manager_->Update();
-			gef::SonyControllerInputManager* controller_input = input_manager_->controller_input();
-			if (controller_input)
-			{
-				const gef::SonyController* controller = controller_input->GetController(0);
-				if (controller)
-				{
-					if (controller->buttons_pressed() & gef_SONY_CTRL_START) {
-						gef::DebugOut("Start was pressed!\n");
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_SELECT) {
-						gef::DebugOut("Select was pressed!\n");
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_UP) {
-						gef::DebugOut("Up was pressed!\n");
-						//game_object_.set_position(sprite_position + gef::Vector4(0, -5, 0));
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_DOWN) {
-						gef::DebugOut("Down was pressed!\n");
-						//game_object_.set_position(sprite_position + gef::Vector4(0, 5, 0));
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_LEFT) {
-						gef::DebugOut("Left was pressed!\n");
-						//game_object_.set_position(sprite_position + gef::Vector4(-5, 0, 0));
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_RIGHT) {
-						gef::DebugOut("Right was pressed!\n");
-						//game_object_.set_position(sprite_position + gef::Vector4(5, 0, 0));
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_L2) {
-						gef::DebugOut("Left Bumper was pressed!\n");
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_R2) {
-						gef::DebugOut("Right Bumper was pressed!\n");
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_TRIANGLE) {
-						gef::DebugOut("Triangle was pressed!\n");
-						//game_object_.set_position(platform_.width()*0.5f, platform_.height()*0.5f, 0.0f);
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_CIRCLE)
-					{
-						projectiles_.Init((Moving_enemy.local_transform * marker_transform1 * inverse_marker_transform2).GetTranslation());
-						//projectiles_.position_ = gef::Vector4(.05f, .0f, .0f);
-						projectiles_.set_mesh(primitive_builder_->CreateBoxMesh(gef::Vector4(.005f, .005f, .005f), projectiles_.position_));
-						gef::DebugOut("Circle was pressed!\n");
-					}
-
-					if (controller->buttons_pressed() & gef_SONY_CTRL_CROSS) {
-						gef::DebugOut("Cross was pressed!\n");
-					}
-					if (controller->buttons_pressed() & gef_SONY_CTRL_SQUARE) {
-						gef::DebugOut("Square was pressed!\n");
-					}
-					if ((controller->buttons_down() & (gef_SONY_CTRL_SELECT | gef_SONY_CTRL_START)) == (gef_SONY_CTRL_SELECT | gef_SONY_CTRL_START)) {
-						gef::DebugOut("Anakin gif!\n");
-						//return false;
-					}
-					/*float left_x_axis = controller->left_stick_x_axis();
-					gef::DebugOut("xL: %f\n", left_x_axis);
-					float left_y_axis = controller->left_stick_y_axis();
-					gef::DebugOut("yL: %f\n", left_y_axis);
-					if (left_x_axis < 0) {
-						cube.position_.set_x(cube.position_.x() - .01f);
-					}
-					else if (left_x_axis > 0) {
-						cube.position_.set_x(cube.position_.x() + .01f);
-					}
-					if (left_y_axis < 0) {
-						cube.position_.set_y(cube.position_.y() + .01f);
-					}
-					else if (left_y_axis > 0) {
-						cube.position_.set_y(cube.position_.y() - .01f);*/
-				}
-			}
-		}
+		
 		
 
 
@@ -269,7 +193,83 @@ void GameState::Update(float frame_time, gef::InputManager * inputManager, State
 		velocity_ *= -1;
 	}
 
+	if (input_manager_)
+	{
+		input_manager_->Update();
+		gef::SonyControllerInputManager* controller_input = input_manager_->controller_input();
+		if (controller_input)
+		{
+			const gef::SonyController* controller = controller_input->GetController(0);
+			if (controller)
+			{
+				if (controller->buttons_pressed() & gef_SONY_CTRL_START) {
+					gef::DebugOut("Start was pressed!\n");
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_SELECT) {
+					gef::DebugOut("Select was pressed!\n");
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_UP) {
+					gef::DebugOut("Up was pressed!\n");
+					//game_object_.set_position(sprite_position + gef::Vector4(0, -5, 0));
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_DOWN) {
+					gef::DebugOut("Down was pressed!\n");
+					//game_object_.set_position(sprite_position + gef::Vector4(0, 5, 0));
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_LEFT) {
+					gef::DebugOut("Left was pressed!\n");
+					//game_object_.set_position(sprite_position + gef::Vector4(-5, 0, 0));
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_RIGHT) {
+					gef::DebugOut("Right was pressed!\n");
+					//game_object_.set_position(sprite_position + gef::Vector4(5, 0, 0));
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_L2) {
+					gef::DebugOut("Left Bumper was pressed!\n");
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_R2) {
+					gef::DebugOut("Right Bumper was pressed!\n");
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_TRIANGLE) {
+					gef::DebugOut("Triangle was pressed!\n");
+					//game_object_.set_position(platform_.width()*0.5f, platform_.height()*0.5f, 0.0f);
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_CIRCLE)
+				{
+					projectiles_.Init((Moving_enemy.local_transform * marker_transform1 * inverse_marker_transform2).GetTranslation());
+					//projectiles_.position_ = gef::Vector4(.05f, .0f, .0f);
+					projectiles_.set_mesh(primitive_builder_->CreateBoxMesh(gef::Vector4(.005f, .005f, .005f), projectiles_.position_));
+					gef::DebugOut("Circle was pressed!\n");
+				}
 
+				if (controller->buttons_pressed() & gef_SONY_CTRL_CROSS) {
+					gef::DebugOut("Cross was pressed!\n");
+				}
+				if (controller->buttons_pressed() & gef_SONY_CTRL_SQUARE) {
+					gef::DebugOut("Square was pressed!\n");
+				}
+				if ((controller->buttons_down() & (gef_SONY_CTRL_SELECT | gef_SONY_CTRL_START)) == (gef_SONY_CTRL_SELECT | gef_SONY_CTRL_START)) {
+					gef::DebugOut("Anakin gif!\n");
+					//return false;
+				}
+				/*float left_x_axis = controller->left_stick_x_axis();
+				gef::DebugOut("xL: %f\n", left_x_axis);
+				float left_y_axis = controller->left_stick_y_axis();
+				gef::DebugOut("yL: %f\n", left_y_axis);
+				if (left_x_axis < 0) {
+				cube.position_.set_x(cube.position_.x() - .01f);
+				}
+				else if (left_x_axis > 0) {
+				cube.position_.set_x(cube.position_.x() + .01f);
+				}
+				if (left_y_axis < 0) {
+				cube.position_.set_y(cube.position_.y() + .01f);
+				}
+				else if (left_y_axis > 0) {
+				cube.position_.set_y(cube.position_.y() - .01f);*/
+			}
+		}
+	}
 
 	sampleUpdateEnd(dat);
 
